@@ -1,0 +1,176 @@
+
+hello.ko.unstripped:     file format elf32-littlearm
+
+
+Disassembly of section .init.text:
+
+00000000 <init_module>:
+static uint param = 1;
+module_param(param, uint, S_IRUGO);
+MODULE_PARM_DESC(param, "The amount of params to print Hello world");
+
+static int __init initter(void)
+{
+   0:	e92d47f0 	push	{r4, r5, r6, r7, r8, r9, sl, lr}
+			unsigned int index = kmalloc_index(size);
+
+			if (!index)
+				return ZERO_SIZE_PTR;
+
+			return kmem_cache_alloc_trace(kmalloc_caches[index],
+   4:	e3008000 	movw	r8, #0
+   8:	e3408000 	movt	r8, #0
+   c:	e3a02010 	mov	r2, #16
+  10:	e3a010c0 	mov	r1, #192	; 0xc0
+  14:	e3401060 	movt	r1, #96	; 0x60
+  18:	e5980018 	ldr	r0, [r8, #24]
+  1c:	ebfffffe 	bl	0 <kmem_cache_alloc_trace>
+
+struct mine_head_list *temp0, *temp1;
+head = kmalloc(sizeof(struct mine_head_list), GFP_KERNEL);
+temp0 = head;
+
+if (param == 0) {
+  20:	e3002000 	movw	r2, #0
+  24:	e3402000 	movt	r2, #0
+head = kmalloc(sizeof(struct mine_head_list), GFP_KERNEL);
+  28:	e3001000 	movw	r1, #0
+  2c:	e3401000 	movt	r1, #0
+if (param == 0) {
+  30:	e5923000 	ldr	r3, [r2]
+  34:	e1a05002 	mov	r5, r2
+  38:	e3530000 	cmp	r3, #0
+  3c:	e1a06000 	mov	r6, r0
+head = kmalloc(sizeof(struct mine_head_list), GFP_KERNEL);
+  40:	e5810000 	str	r0, [r1]
+if (param == 0) {
+  44:	1a000003 	bne	58 <init_module+0x58>
+	printk(KERN_WARNING "The param is 0");
+  48:	e3000000 	movw	r0, #0
+  4c:	e3400000 	movt	r0, #0
+  50:	ebfffffe 	bl	0 <printk>
+  54:	ea000005 	b	70 <init_module+0x70>
+} else if (param >= 5 && param <= 10) {
+  58:	e2433005 	sub	r3, r3, #5
+  5c:	e3530005 	cmp	r3, #5
+  60:	8a000002 	bhi	70 <init_module+0x70>
+	printk(KERN_WARNING "The param is between 5 and 10");
+  64:	e3000000 	movw	r0, #0
+  68:	e3400000 	movt	r0, #0
+  6c:	ebfffffe 	bl	0 <printk>
+} 
+BUG_ON(param > 10);
+  70:	e5953000 	ldr	r3, [r5]
+  74:	e353000a 	cmp	r3, #10
+  78:	9a000000 	bls	80 <init_module+0x80>
+  7c:	e7f001f2 	.word	0xe7f001f2
+  80:	e3a0a0c0 	mov	sl, #192	; 0xc0
+	temp0->time = ktime_get();
+	if (i == 7){
+		temp0 = NULL;
+	}
+	//BUG_ON(temp0==0);	
+	pr_info("Hello World!");
+  84:	e3009000 	movw	r9, #0
+  88:	e340a060 	movt	sl, #96	; 0x60
+  8c:	e3409000 	movt	r9, #0
+for (i = 0; i < param; i++) {
+  90:	e3a04000 	mov	r4, #0
+  94:	e5953000 	ldr	r3, [r5]
+  98:	e1530004 	cmp	r3, r4
+  9c:	9a00000e 	bls	dc <init_module+0xdc>
+  a0:	e3a02010 	mov	r2, #16
+  a4:	e1a0100a 	mov	r1, sl
+  a8:	e5980018 	ldr	r0, [r8, #24]
+  ac:	ebfffffe 	bl	0 <kmem_cache_alloc_trace>
+	temp0->next = kmalloc(sizeof(struct mine_head_list), GFP_KERNEL);
+  b0:	e5860000 	str	r0, [r6]
+	temp0->time = ktime_get();
+  b4:	ebfffffe 	bl	0 <ktime_get>
+		temp0 = NULL;
+  b8:	e3540007 	cmp	r4, #7
+for (i = 0; i < param; i++) {
+  bc:	e2844001 	add	r4, r4, #1
+	temp0->time = ktime_get();
+  c0:	e1c600f8 	strd	r0, [r6, #8]
+		temp0 = NULL;
+  c4:	03a06000 	moveq	r6, #0
+	pr_info("Hello World!");
+  c8:	e1a00009 	mov	r0, r9
+	temp1 = temp0;
+  cc:	e1a07006 	mov	r7, r6
+	pr_info("Hello World!");
+  d0:	ebfffffe 	bl	0 <printk>
+	temp0 = temp0->next;
+  d4:	e5966000 	ldr	r6, [r6]
+  d8:	eaffffed 	b	94 <init_module+0x94>
+}
+if (param != 0) {
+  dc:	e3530000 	cmp	r3, #0
+  e0:	0a000003 	beq	f4 <init_module+0xf4>
+	kfree(temp1->next);
+  e4:	e5970000 	ldr	r0, [r7]
+  e8:	ebfffffe 	bl	0 <kfree>
+	temp1->next = NULL;
+  ec:	e3a03000 	mov	r3, #0
+  f0:	e5873000 	str	r3, [r7]
+}
+
+printk(KERN_INFO "Param: %d\n", param);
+  f4:	e5951000 	ldr	r1, [r5]
+  f8:	e3000000 	movw	r0, #0
+  fc:	e3400000 	movt	r0, #0
+ 100:	ebfffffe 	bl	0 <printk>
+
+return 0;
+}
+ 104:	e3a00000 	mov	r0, #0
+ 108:	e8bd87f0 	pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+
+Disassembly of section .exit.text:
+
+00000000 <cleanup_module>:
+
+static void __exit exitter(void)
+{
+   0:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+struct mine_head_list *temp;
+while (head != NULL && param != 0) {
+   4:	e3004000 	movw	r4, #0
+   8:	e3007000 	movw	r7, #0
+	temp = head;
+	pr_info("Time: %lld", temp->time);
+   c:	e3006000 	movw	r6, #0
+while (head != NULL && param != 0) {
+  10:	e3404000 	movt	r4, #0
+  14:	e3407000 	movt	r7, #0
+	pr_info("Time: %lld", temp->time);
+  18:	e3406000 	movt	r6, #0
+while (head != NULL && param != 0) {
+  1c:	e5945000 	ldr	r5, [r4]
+  20:	e3550000 	cmp	r5, #0
+  24:	0a00000a 	beq	54 <cleanup_module+0x54>
+  28:	e5973000 	ldr	r3, [r7]
+  2c:	e3530000 	cmp	r3, #0
+  30:	0a000007 	beq	54 <cleanup_module+0x54>
+	pr_info("Time: %lld", temp->time);
+  34:	e1c520d8 	ldrd	r2, [r5, #8]
+  38:	e1a00006 	mov	r0, r6
+  3c:	ebfffffe 	bl	0 <printk>
+	head = temp->next;
+  40:	e5953000 	ldr	r3, [r5]
+	kfree(temp);
+  44:	e1a00005 	mov	r0, r5
+	head = temp->next;
+  48:	e5843000 	str	r3, [r4]
+	kfree(temp);
+  4c:	ebfffffe 	bl	0 <kfree>
+  50:	eafffff1 	b	1c <cleanup_module+0x1c>
+}
+pr_info("");
+  54:	e3000000 	movw	r0, #0
+  58:	e3400000 	movt	r0, #0
+}
+  5c:	e8bd41f0 	pop	{r4, r5, r6, r7, r8, lr}
+pr_info("");
+  60:	eafffffe 	b	0 <printk>
